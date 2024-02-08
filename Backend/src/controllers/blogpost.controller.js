@@ -2,7 +2,7 @@ import { Blogpost } from "../models/blogpost.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const createPost = asyncHandler (async (req, res) => {
     const { title, descriptions,  categorydescriptions,  creatorname } = req.body;
@@ -12,12 +12,18 @@ export const createPost = asyncHandler (async (req, res) => {
     ) {
         throw new ApiError(400, "All fields are required")
     }
-
+    let coverImageLocalPath;
+    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+        coverImageLocalPath = req.files.coverImage[0].path
+    }
+     
+   const coverImage = await uploadOnCloudinary(coverImageLocalPath)
     const post = await Blogpost.create({
         title, 
         descriptions,  
         categorydescriptions,  
-        creatorname
+        creatorname,
+        coverImage: coverImage?.url || "",
     })
     return res.status(201).json(
         new ApiResponse(200, post, "Post Successfully")

@@ -17,6 +17,9 @@ const blogPostSchema = new Schema ({
         type: String,
         required: true,
       },
+      coverImage:{
+        type: String
+      }
 
 },
    {

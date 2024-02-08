@@ -1,11 +1,19 @@
 import { Router } from "express";
 import { createPost, getPosts, updatePost, deletePost, getPostById    } from "../controllers/blogpost.controller.js";
-
+import { upload } from "../middlewares/multter.middleware.js";
 
 const router = Router()
 
 
-router.route("/createblog").post((req, res) => {
+router.route("/createblog").post(
+    
+    upload.fields([
+        {
+            name: "coverImage",
+            maxCount: 1
+        }
+    ]),
+    (req, res) => {
     try {
         createPost(req, res)
     } catch (error) {

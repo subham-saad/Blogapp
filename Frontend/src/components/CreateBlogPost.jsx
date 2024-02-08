@@ -8,6 +8,7 @@ const CreateBlogForm = () => {
   const [blogContent, setBlogContent] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [coverImage, setCoverImage] = useState(''); 
 
   const handleCreatorNameChange = (event) => {
     setCreatorName(event.target.value);
@@ -25,36 +26,67 @@ const CreateBlogForm = () => {
     setBlogContent(event.target.value);
   };
 
+  const handleCoverImageChange = (event) => {
+    // Access the first file from the selected files
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setCoverImage(selectedFile);
+    }
+  };
+
   const handleSnackbarClose = () => {
     setOpenSnackbar(false);
   };
 
+  // const handleSubmit = async () => {
+  //   try {
+  //     // Make a network request to your backend API using fetch
+  //     const response = await fetch('http://localhost:8000/api/v1/creator/createblog', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         creatorname: creatorName,
+  //         title: title,
+  //         categorydescriptions: category,
+  //         descriptions: blogContent,
+  //         coverImage:coverImage
+  //       }),
+  //     });
+
+  //     // Parse the response
+  //     const data = await response.json();
+
+  //     // Handle the response from the backend
+  //     setSuccessMessage(data.message);
+  //     setOpenSnackbar(true);
+  //     // You can also handle the success response and update your UI accordingly
+  //   } catch (error) {
+  //     console.error('Error creating blog:', error.message);
+  //     // Handle the error response and update your UI accordingly
+  //   }
+  // };
   const handleSubmit = async () => {
     try {
-      // Make a network request to your backend API using fetch
+      const formData = new FormData();
+      formData.append('creatorname', creatorName);
+      formData.append('title', title);
+      formData.append('categorydescriptions', category);
+      formData.append('descriptions', blogContent);
+      formData.append('coverImage', coverImage);
+
       const response = await fetch('http://localhost:8000/api/v1/creator/createblog', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          creatorname: creatorName,
-          title: title,
-          categorydescriptions: category,
-          descriptions: blogContent,
-        }),
+        body: formData,
       });
 
-      // Parse the response
       const data = await response.json();
 
-      // Handle the response from the backend
       setSuccessMessage(data.message);
       setOpenSnackbar(true);
-      // You can also handle the success response and update your UI accordingly
     } catch (error) {
       console.error('Error creating blog:', error.message);
-      // Handle the error response and update your UI accordingly
     }
   };
 
@@ -102,6 +134,16 @@ const CreateBlogForm = () => {
           {/* Add more categories as needed */}
         </Select>
       </FormControl>
+      <TextField
+         sx={{}}
+        type="file"
+        label="Image"
+        variant="standard"
+        // value={coverImage}
+        fullWidth
+        onChange={handleCoverImageChange}
+        margin="normal"
+      />
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Create Blog
       </Button>

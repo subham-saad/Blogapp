@@ -31,6 +31,13 @@ const OneBlogPost = () => {
       <Typography variant="h4" gutterBottom>
         {post.title}
       </Typography>
+      {post.coverImage && (
+              <img
+                src={post.coverImage}
+                alt="Cover"
+                style={{ marginBottom: '16px', display: 'flex', maxHeight:"200px", width:"40%", alignItems: 'center' }}
+              />
+      )}
       <Typography variant="body1" paragraph>
         {post.descriptions}
       </Typography>
