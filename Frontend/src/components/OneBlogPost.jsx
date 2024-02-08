@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import { Paper, Typography } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
-import DeleteButton from './DeleteButton';
 const StyledPaper = styled(Paper)`
   padding: 16px;
   margin: 16px 0;
