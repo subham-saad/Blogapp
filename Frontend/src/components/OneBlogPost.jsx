@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Paper, Typography } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
 const StyledPaper = styled(Paper)`
-  padding: 16px;
-  margin: 16px 0;
+  padding: 24px;
+  margin: 20px 0;
 `;
 
 const FlexContainer = styled.div`
