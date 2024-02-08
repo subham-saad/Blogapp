@@ -52,6 +52,22 @@ export const getPosts = async (req, res) => {
     }
   };
 
+  export const getPostById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const post = await Blogpost.findById(id);
+  
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+  
+      res.status(200).json(post);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
 
   export const updatePost = asyncHandler(async (req, res) => {
     const { id } = req.params;
