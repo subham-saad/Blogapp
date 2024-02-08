@@ -15,10 +15,10 @@ app.use(Express.urlencoded({extended: true, limit: "16kb"}))
 app.use(Express.static("public"))
 app.use(cookieParser())
 
-// import UserRouter from './routes/user.route.js';
+ import BlogPostRouter from './routes/blogpost.route.js';
 
 
-// app.use("/api/v1/users", UserRouter)
+ app.use("/api/v1/creator", BlogPostRouter )
 
 
 export { app }
