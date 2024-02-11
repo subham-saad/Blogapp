@@ -8,6 +8,9 @@ function NavBar() {
       <Link to="/">
       <h3 className="font-bold font-sans text-xl">Blogmania</h3>
       </Link>
+      <Link to="/login">
+      <button className="font-bold bg-gray-600 p-2 text-white rounded-lg text-md">Login</button>
+      </Link>
       <Link to="/createblog" >
       <button className="font-bold bg-gray-600 p-2 text-white rounded-lg text-md">Create</button>
       </Link>

@@ -5,6 +5,9 @@ import OneBlogPost from './components/oneBlogPost';
 import NavBar from './components/NavBar';
  import CreateBlogForm from './components/CreateBlogPost';
  import EditBlogForm from './components/EditBlogForm';
+ import Login from './components/LoginCreator'
+
+
 function App() {
   const [updatedPost, setUpdatedPost] = useState(null);
 
@@ -25,6 +28,7 @@ function App() {
       {/* <OneBlogPost /> */}
       <Routes>
         <Route path="/" element={<BlogPost />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/createblog" element={<CreateBlogForm/>}/>
         <Route path="/oneblogpost" element={<OneBlogPost />} />
         <Route path="/edit/:postId" element={<EditBlogForm onUpdate={handleUpdate} onClose={handleClose} />}/>

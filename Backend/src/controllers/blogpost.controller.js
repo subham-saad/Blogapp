@@ -3,15 +3,55 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+
+// const generateAccessAndRefereshTokens = async (Id) => {
+//    try {
+//     const creator = await Blogpost.findById(Id)
+//     const accessToken = Blogpost.generateAccessToken();
+//     const refreshToken = Blogpost.generateRefreshToken();
+
+//     creator.refreshToken = refreshToken;
+//     await creator.save({ validateBeforeSave: false});
+//     console.log(accessToken, refreshToken)
+//     return { accessToken, refreshToken };
+//    } catch (error) {
+//      throw new ApiError(500, "Something went wrong");
+//    }
+// };
+
+const generateAccessAndRefereshTokens = async (adminId) => {
+  try {
+      const admin = await Blogpost.findById(adminId);
+      const accessToken = admin.generateAccessToken();
+      const refreshToken = admin.generateRefreshToken();
+
+      admin.refreshToken = refreshToken;
+      await admin.save({ validateBeforeSave: false });
+
+      return { accessToken, refreshToken };
+      
+  } catch (error) {
+      throw new ApiError(500, "Something went wrong");
+  }
+};
+
 
 export const createPost = asyncHandler (async (req, res) => {
-    const { title, descriptions,  categorydescriptions,  creatorname } = req.body;
+    const { title, descriptions,  categorydescriptions,  creatorname, email, password } = req.body;
 
     if (
-        [ title, descriptions,  categorydescriptions,  creatorname ].some((field) => field?.trim() === "")
+        [ title, descriptions,  categorydescriptions,  creatorname, email, password ].some((field) => field?.trim() === "")
     ) {
         throw new ApiError(400, "All fields are required")
     }
+    const existedUser = await Blogpost.findOne({
+      $or: [{ creatorname}, { email }]
+  })
+
+  if (existedUser) {
+    throw new ApiError(409, "User with email or username already exists")
+}
     let coverImageLocalPath;
     if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
         coverImageLocalPath = req.files.coverImage[0].path
@@ -24,7 +64,17 @@ export const createPost = asyncHandler (async (req, res) => {
         categorydescriptions,  
         creatorname,
         coverImage: coverImage?.url || "",
+        email, 
+        password,
     })
+
+    const createdUser = await Blogpost.findById(post._id).select("-password -refreshToken")
+
+    if (!createdUser) {
+        throw new ApiError(500, "Something went wrong while registering the user")
+    }
+
+
     return res.status(201).json(
         new ApiResponse(200, post, "Post Successfully")
     )
@@ -109,6 +159,7 @@ export const getPosts = async (req, res) => {
   
 
   export const deletePost = asyncHandler(async (req, res) => {
+    
     const { id } = req.params;
   
     const deletedPost = await Blogpost.findByIdAndDelete(id);
@@ -122,5 +173,66 @@ export const getPosts = async (req, res) => {
     );
   });
   
+  export const LoginCreator = asyncHandler(async (req, res) =>{
+    // req body -> data
+    // username or email
+    //find the user
+    //password check
+    //access and referesh token
+    //send cookie
+
+    const {email, password} = req.body
+    console.log(email);
+    console.log(password)
+    
+    if (!email) {
+        throw new ApiError(400, "username or email is required")
+    }
+    
+    // Here is an alternative of above code based on logic discussed in video:
+    // if (!(username || email)) {
+    //     throw new ApiError(400, "username or email is required")
+        
+    // }
+
+    const admin = await Blogpost.findOne({
+        $or: [{email}]
+    })
+
+    if (!admin) {
+        throw new ApiError(404, "User does not exist")
+    }
+
+  const isPasswordValid = await admin.isPasswordCorrect(password)
+  console.log(isPasswordValid)
+   if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid user credentials")
+    }
+
+   const {accessToken, refreshToken} = await generateAccessAndRefereshTokens(admin._id)
+   console.log("tokens", refreshToken)
+
+    const loggedInUser = await Blogpost.findById(admin._id).select("-password -refreshToken")
+     
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+        new ApiResponse(
+            200, 
+            {
+                admin: loggedInUser, accessToken, refreshToken
+            },
+            "User logged In Successfully"
+        )
+    )
+
+})
 
   

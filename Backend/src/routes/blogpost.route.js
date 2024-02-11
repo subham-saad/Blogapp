@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createPost, getPosts, updatePost, deletePost, getPostById    } from "../controllers/blogpost.controller.js";
+import { createPost, getPosts, updatePost, deletePost, getPostById, LoginCreator  } from "../controllers/blogpost.controller.js";
 import { upload } from "../middlewares/multter.middleware.js";
 
 const router = Router()
@@ -23,6 +23,7 @@ router.route("/createblog").post(
 })
 
 router.route('/post').get(getPosts);
+router.route('/logincreator').post(LoginCreator);
 router.route('/updatepost/:id').patch(updatePost);
 router.route('/getpost/:id').get(getPostById )
 // Delete a post
