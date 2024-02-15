@@ -9,9 +9,19 @@ const CreateBlogForm = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [coverImage, setCoverImage] = useState(''); 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleCreatorNameChange = (event) => {
     setCreatorName(event.target.value);
+  };
+
+  const handleCreatorEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
   };
 
   const handleTitleChange = (event) => {
@@ -75,6 +85,8 @@ const CreateBlogForm = () => {
       formData.append('categorydescriptions', category);
       formData.append('descriptions', blogContent);
       formData.append('coverImage', coverImage);
+      formData.append('email', email);
+      formData.append('password', password)
 
       const response = await fetch('http://localhost:8000/api/v1/creator/createblog', {
         method: 'POST',
@@ -98,6 +110,22 @@ const CreateBlogForm = () => {
         fullWidth
         value={creatorName}
         onChange={handleCreatorNameChange}
+        margin="normal"
+      />
+        <TextField
+        label="Creator Email"
+        variant="outlined"
+        fullWidth
+        value={email}
+        onChange={handleCreatorEmail}
+        margin="normal"
+      />
+        <TextField
+        label="Password"
+        variant="outlined"
+        fullWidth
+        value={password}
+        onChange={handlePassword}
         margin="normal"
       />
       <TextField
