@@ -19,7 +19,7 @@ function App() {
   const handleClose = () => {
     // Handle closing the edit form, for example, navigate to another page
     // In this example, we reset the updated post state
-    setUpdatedPost(null);
+    setUpdatedPost(updatedPost);
   };
   return (
     <Router>
