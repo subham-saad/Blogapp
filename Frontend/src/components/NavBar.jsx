@@ -2,15 +2,17 @@
 import { Link } from 'react-router-dom';
 
 
-function NavBar() {
+function NavBar({isLogedIn}) {
   return (
     <nav className="flex-between bg-emerald-500 rounded-md mb-8 p-5">
       <Link to="/">
       <h3 className="font-bold font-sans text-xl">Blogmania</h3>
       </Link>
-      <Link to="/login">
+      {isLogedIn ? <Link to="/login">
       <button className="font-bold bg-gray-600 p-2 text-white rounded-lg text-md">Login</button>
-      </Link>
+      </Link> : <Link to="/logout">
+      <button className="font-bold bg-red-600 p-2 text-white rounded-lg text-md">LogOut</button>
+      </Link> }
       <Link to="/createblog" >
       <button className="font-bold bg-gray-600 p-2 text-white rounded-lg text-md">Create</button>
       </Link>

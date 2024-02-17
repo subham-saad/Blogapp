@@ -6,7 +6,7 @@ import NavBar from './components/NavBar';
  import CreateBlogForm from './components/CreateBlogPost';
  import EditBlogForm from './components/EditBlogForm';
  import Login from './components/LoginCreator'
-
+ import LogOut from './components/LogoutCreator'
 
 function App() {
   const [updatedPost, setUpdatedPost] = useState(null);
@@ -21,14 +21,17 @@ function App() {
     // In this example, we reset the updated post state
     setUpdatedPost(null);
   };
+
+  const isLogedIn = true
   return (
     <Router>
-      <NavBar />
+      <NavBar isLogedIn={isLogedIn} />
       {/* <BlogPost /> */}
       {/* <OneBlogPost /> */}
       <Routes>
         <Route path="/" element={<BlogPost />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<LogOut/>} />
         <Route path="/createblog" element={<CreateBlogForm/>}/>
         <Route path="/oneblogpost" element={<OneBlogPost />} />
         <Route path="/edit/:postId" element={<EditBlogForm onUpdate={handleUpdate} onClose={handleClose} />}/>

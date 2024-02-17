@@ -210,29 +210,55 @@ export const getPosts = async (req, res) => {
     }
 
    const {accessToken, refreshToken} = await generateAccessAndRefereshTokens(admin._id)
-   console.log("tokens", refreshToken)
+  
 
     const loggedInUser = await Blogpost.findById(admin._id).select("-password -refreshToken")
-     
+    
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+       
     }
-
+  
     return res
     .status(200)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
     .json(
-        new ApiResponse(
-            200, 
-            {
-                admin: loggedInUser, accessToken, refreshToken
-            },
-            "User logged In Successfully"
-        )
-    )
+      new ApiResponse(
+        200, 
+        {
+          admin: loggedInUser, accessToken, refreshToken
+        },
+        "User logged In Successfully"
+      )
+    );
 
+})
+
+export const logoutUser = asyncHandler(async(req, res) => {
+  console.log(req.admin._id)
+  await Blogpost.findByIdAndUpdate(req.admin._id,
+    {
+      $unset: {
+        refreshToken: 1
+      }
+    },
+    {
+      new: true
+    }
+  )
+
+  const options = {
+    httpOnly: true,
+    secure: true
+  }
+ 
+  return res
+  .status(200)
+  .clearCookie("accessToken", options)
+  .clearCookie("refreshToken", options)
+  .json(new ApiResponse(200, {}, "User logged out"))
 })
 
   
