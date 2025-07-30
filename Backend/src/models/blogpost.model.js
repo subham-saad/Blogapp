@@ -33,7 +33,28 @@ const blogPostSchema = new Schema ({
       },
       refreshToken: {
         type: String
+    },
+    likes: [{
+    userId: String,
+    userName: String,
+    likedAt: {
+        type: Date,
+        default: Date.now
     }
+}],
+comments: [{
+    userId: String,
+    userName: String,
+    comment: String,
+    commentedAt: {
+        type: Date,
+        default: Date.now
+    }
+}],
+shares: {
+    type: Number,
+    default: 0
+}
 
 },
    {

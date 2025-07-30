@@ -1,0 +1,39 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/usr/src/app
+    environment:
+      - PORT=8000
+      - MONGODB_URI=mongodb+srv://shubhamsaad777:blog1234@myblog.vdsfcvx.mongodb.net
+      - CORS_ORIGIN=http://localhost:5173
+      - CLOUDINARY_API_NAME=dr68gbtvx
+      - CLOUDINARY_API_KEY=334683654834236
+      - CLOUDINARY_API_SECRET=9OcrhzWBJDS9XMesQR7tsIjvLOA
+      - ACCESS_TOKEN_SECRET=chai-aur-code
+      - ACCESS_TOKEN_EXPIRY=1d
+      - REFRESH_TOKEN_SECRET=chai-aur-backend
+      - REFRESH_TOKEN_EXPIRY=10d
+    command: npm run dev
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/usr/src/app
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:4.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

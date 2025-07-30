@@ -18,10 +18,12 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
           email: email,
           password: password,
         }),
+         // include cookies in the request
       });
       console.log('After login request');
       

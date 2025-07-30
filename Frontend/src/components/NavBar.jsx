@@ -16,6 +16,9 @@ function NavBar({isLogedIn}) {
       <Link to="/createblog" >
       <button className="font-bold bg-gray-600 p-2 text-white rounded-lg text-md">Create</button>
       </Link>
+      <Link to="/register" >
+      <button className="font-bold bg-gray-600 p-2 text-white rounded-lg text-md">Register</button>
+      </Link>
     </nav>
   )
 }

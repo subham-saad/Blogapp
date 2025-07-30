@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import BlogPost from './components/blogPost';
+import BlogFeed from './components/blogPost';
 import OneBlogPost from './components/oneBlogPost';
 import NavBar from './components/NavBar';
  import CreateBlogForm from './components/CreateBlogPost';
  import EditBlogForm from './components/EditBlogForm';
  import Login from './components/LoginCreator'
  import LogOut from './components/LogoutCreator'
+ import RegisterUser from './components/registerUser';
 
 function App() {
   const [updatedPost, setUpdatedPost] = useState(null);
@@ -29,12 +30,13 @@ function App() {
       {/* <BlogPost /> */}
       {/* <OneBlogPost /> */}
       <Routes>
-        <Route path="/" element={<BlogPost />} />
+        <Route path="/" element={<BlogFeed />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogOut/>} />
         <Route path="/createblog" element={<CreateBlogForm/>}/>
         <Route path="/oneblogpost" element={<OneBlogPost />} />
         <Route path="/edit/:postId" element={<EditBlogForm onUpdate={handleUpdate} onClose={handleClose} />}/>
+        <Route path="/register" element={<RegisterUser />} />
       </Routes>
     </Router>
   );

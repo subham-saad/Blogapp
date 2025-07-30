@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 
+
 const app = Express()
 
 app.use(cors({
@@ -16,10 +17,9 @@ app.use(Express.urlencoded({extended: true, limit: "16kb"}))
 app.use(Express.static("public"))
 app.use(cookieParser())
 
- import BlogPostRouter from './routes/blogpost.route.js';
+import BlogPostRouter from './routes/blogpost.route.js';
  
-
- app.use("/api/v1/creator", BlogPostRouter )
+app.use("/api/v1/creator", BlogPostRouter )
 
 
 export { app }
