@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build": "echo \"No build step needed\"",
+    "build": "echo \"No build step needed\""
   },
   "author": "shubham",
   "license": "ISC",
