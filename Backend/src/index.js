@@ -1,11 +1,7 @@
-import dotenv from "dotenv"
 import connectDB from "./db/dbConnection.js"
 import { app } from './app.js'
 import { setupWebSocket } from '../src/utils/websocket.js';
 import http from 'http';
-dotenv.config({
-    path: './.env'
-})
 
 const server = http.createServer(app); 
 setupWebSocket(server);
