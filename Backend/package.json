@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/index.js"
+    "dev": "nodemon -r dotenv/config src/index.js",
     "build": "echo \"No build step needed\"",
     "start": "node -r dotenv/config src/index.js"
   },
