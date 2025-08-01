@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config src/index.js",
-    "build": "echo 'No build step needed'"
+    "build": "echo \"No build step needed\""
   },
   "author": "shubham",
   "license": "ISC",
