@@ -9,11 +9,11 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [accessToken, setAccessToken] = useState('');
-  
+
   const handleLogin = async () => {
     try {
       console.log('Before login request');
-      const response = await fetch('http://localhost:8000/api/v1/creator/logincreator', {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/logincreator`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -144,7 +144,7 @@ const RegisterUser = () => {
       if (formData.bio) submitData.append('bio', formData.bio);
       if (formData.avatar) submitData.append('avatar', formData.avatar);
 
-      const response = await fetch(`http://localhost:8000/api/v1/creator/register`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/register`, {
         method: 'POST',
         body: submitData
       });

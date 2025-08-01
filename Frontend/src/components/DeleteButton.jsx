@@ -16,7 +16,7 @@ const DeleteButton = ({ postId, onDelete }) => {
   const handleDelete = async () => {
     try {
       // Make a DELETE request to delete the post
-      const response = await fetch(`http://localhost:8000/api/v1/creator/deletepost/${postId}`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/deletepost/${postId}`, {
         method: 'DELETE',
       });
 

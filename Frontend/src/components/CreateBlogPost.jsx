@@ -87,8 +87,7 @@ const CreateBlogForm = () => {
       formData.append('coverImage', coverImage);
       formData.append('email', email);
       formData.append('password', password)
-
-      const response = await fetch('http://localhost:8000/api/v1/creator/createblog', {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/createblog`, {
         method: 'POST',
         body: formData,
       });

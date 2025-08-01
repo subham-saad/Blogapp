@@ -35,7 +35,7 @@ const BlogPost = ({ post, currentUser }) => {
   const handleLike = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/creator/${post._id}/like`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/${post._id}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const BlogPost = ({ post, currentUser }) => {
   const handleShare = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/creator/${post._id}/share`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/${post._id}/share`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const BlogPost = ({ post, currentUser }) => {
     
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/creator/${post._id}/comment`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/${post._id}/comment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ const BlogPost = ({ post, currentUser }) => {
     
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/creator/${post._id}/comment/${commentIndex}`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/${post._id}/comment/${commentIndex}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

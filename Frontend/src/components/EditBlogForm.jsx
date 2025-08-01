@@ -39,7 +39,7 @@ const EditBlogForm = ({ onUpdate, onClose }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/creator/updatepost/${postId}`, {
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/updatepost/${postId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

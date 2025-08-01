@@ -4,11 +4,11 @@ function LogoutCreator({ token }) {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
+  
       
     const handleLogout = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/creator/logout', {
+        const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
