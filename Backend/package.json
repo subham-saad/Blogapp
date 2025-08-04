@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/index.js",
+    "dev": "nodemon src/index.js",
     "build": "echo \"No build step needed\"",
-    "start": "node -r dotenv/config src/index.js"
+    "start": "node src/index.js"
   },
   "author": "shubham",
   "license": "ISC",
