@@ -503,7 +503,7 @@ const BlogFeed = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/creator/post');
+      const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/post`);
       const data = await response.json();
       
       if (response.ok) {
