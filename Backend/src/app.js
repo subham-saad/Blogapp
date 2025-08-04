@@ -6,10 +6,13 @@ import cors from "cors";
 
 const app = Express()
 
+// app.use(cors({
+//     origin: process.env.CORS_ORIGIN,
+//     credentials: true
+// }))
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
-}))
+  origin: '*'  // Allows all origins - use only for testing
+}));
 
 
 app.use(Express.json({limit: "16kb"}))
