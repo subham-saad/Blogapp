@@ -17,7 +17,7 @@ const EditBlogForm = ({ onUpdate, onClose }) => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/v1/creator/getpost/${postId}`);
+        const response = await fetch(`${import.meta.env.VITE_MY_URL}/api/v1/creator/getpost/${postId}`);
         const postData = await response.json();
         console.log(postData)
         // Set the form state with the fetched data
